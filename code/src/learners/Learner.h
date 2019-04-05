@@ -22,9 +22,11 @@
 #include "../evaluation/Evaluator.h"
 #include "../utils/Configurable.h"
 #include "../utils/LearnerModel.h"
+#include "../API.h"
 
 using namespace std;
-class Learner : public Configurable, public LearnerModel {
+
+class STREAMDM_API Learner : public Configurable, public LearnerModel {
 public:
 	Learner();
 	virtual ~Learner();

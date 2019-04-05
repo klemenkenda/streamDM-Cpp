@@ -17,15 +17,60 @@
 
 #include "Log.h"
 
-log4cpp::Category& log_smartDM = log4cpp::Category::getRoot();
+Log log_smartDM;
 
-bool Log::openLog(const std::string& configfile) {
-	//std::string initFileName = "conf/log4cpp.properties";
-	log4cpp::PropertyConfigurator::configure(configfile);
-	
-	return true;
+void Log::debug(const char* stringFormat, ...) throw() {
+	va_list args;
+
+	printf("[DEBUG] ");
+	va_start(args, stringFormat);
+	vfprintf(stdout, stringFormat, args);
+	va_end(args);
+	printf("\n");
 }
 
-void Log::closeLog() {
-	log4cpp::Category::shutdown();
+void Log::debug(const std::string& message) throw() {
+	cout << "[DEBUG] " << message << endl;
+}
+
+void Log::info(const char* stringFormat, ...) throw() {
+	va_list args;
+
+	printf("[INFO] ");
+	va_start(args, stringFormat);
+	vfprintf(stdout, stringFormat, args);
+	va_end(args);
+	printf("\n");
+}
+
+void Log::info(const std::string& message) throw() {
+	cout << "[INFO] " << message << endl;
+}
+
+void Log::warn(const char* stringFormat, ...) throw() {
+	va_list args;
+
+	printf("[WARN] ");
+	va_start(args, stringFormat);
+	vfprintf(stdout, stringFormat, args);
+	va_end(args);
+	printf("\n");
+}
+
+void Log::warn(const std::string& message) throw() {
+	cout << "[WARN] " << message << endl;
+}
+
+void Log::error(const char* stringFormat, ...) throw() {
+	va_list args;
+
+	printf("[ERROR] ");
+	va_start(args, stringFormat);
+	vfprintf(stderr, stringFormat, args);
+	va_end(args);
+	printf("\n");
+}
+
+void Log::error(const std::string& message) throw() {
+	cout << "[ERROR] " << message << endl;
 }

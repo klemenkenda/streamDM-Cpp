@@ -19,10 +19,11 @@
 #define ARFFREADER_H_
 
 #include "../Common.h"
+#include "../API.h"
 
 using namespace std;
 
-class ArffReader: public Reader {
+class STREAMDM_API ArffReader: public Reader {
 public:
 	ArffReader();
 	virtual ~ArffReader();

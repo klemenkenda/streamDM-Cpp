@@ -20,8 +20,9 @@
 
 #include "../../Learner.h"
 #include "NaiveBayesStatistics.h"
+#include "../../../API.h"
 
-class NaiveBayes: public Learner {
+class STREAMDM_API NaiveBayes: public Learner {
 public:
 	NaiveBayes();
 	~NaiveBayes();

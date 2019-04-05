@@ -25,12 +25,13 @@ using namespace std;
 #include "HTNode.h"
 #include "ADWIN.h"
 #include "InstanceConditionalTest.h"
+#include "../../../API.h"
 
 namespace HT {
 
 class HoeffdingAdaptiveTree;
 
-class NewNode {
+class STREAMDM_API NewNode {
 public:
 	NewNode();
 	virtual ~NewNode();
@@ -48,7 +49,7 @@ public:
 
 NewNode* toNewNode(Node* node);
 
-class AdaSplitNode: public SplitNode, public NewNode {
+class STREAMDM_API AdaSplitNode: public SplitNode, public NewNode {
 public:
 	Node* alternateTree;
 	ADWIN* estimationErrorWeight;
@@ -72,7 +73,7 @@ public:
 	virtual void toJson(Json::Value& jv);
 };
 
-class AdaLearningNode: public LearningNodeNBAdaptive, public NewNode {
+class STREAMDM_API AdaLearningNode: public LearningNodeNBAdaptive, public NewNode {
 public:
 	ADWIN* estimationErrorWeight;
 	bool ErrorChange;

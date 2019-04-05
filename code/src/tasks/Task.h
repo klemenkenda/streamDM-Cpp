@@ -19,8 +19,9 @@
 #define TASK_H_
 
 #include "../utils/Configurable.h"
+#include "../API.h"
 
-class Task : public Configurable{
+class STREAMDM_API Task : public Configurable{
 public:
 	Task();
 	virtual ~Task();

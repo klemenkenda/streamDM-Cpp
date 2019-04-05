@@ -19,8 +19,9 @@
 #define BASICCLASSIFICATIONEVALUATOR_H_
 
 #include "Evaluator.h"
+#include "../API.h"
 
-class BasicClassificationEvaluator: public Evaluator {
+class STREAMDM_API BasicClassificationEvaluator: public Evaluator {
 public:
 	// BasicClassificationEvaluator(int);
 	BasicClassificationEvaluator();

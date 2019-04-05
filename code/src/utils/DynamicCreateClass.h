@@ -21,11 +21,13 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "../API.h"
+
 using namespace std;
 
 typedef void* (*__DynamicCreateFuntion)(void);  
       
-class DynamicCreateClassFactory  {
+class STREAMDM_API DynamicCreateClassFactory  {
 private:
 	DynamicCreateClassFactory();
 	DynamicCreateClassFactory(const DynamicCreateClassFactory &);
@@ -39,7 +41,7 @@ public:
 
 
 template<class T, const char name[]>  
-class DynamicRegisterClass {
+class STREAMDM_API DynamicRegisterClass {
 public:
 	DynamicRegisterClass(){
 		DynamicCreateClassFactory::getInstance().registerClass(name, DynamicRegisterClass::createInstance);

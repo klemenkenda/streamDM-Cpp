@@ -18,13 +18,10 @@
 #ifndef Log_H_
 #define Log_H_
 
-#ifdef _MSC_VER
-#pragma comment(lib, "log4cpp.lib")  
-#pragma comment(lib, "ws2_32.lib")  
-#endif
-
-#include <log4cpp/Category.hh>
-#include <log4cpp/PropertyConfigurator.hh>
+#include <iostream>
+#include <string>
+#include <stdarg.h>
+#include "../API.h"
 
 #ifdef _MSC_VER
 #define LOG_DEBUG ::log_smartDM.debug
@@ -38,12 +35,69 @@
 #define LOG_ERROR(x, args...) log_smartDM.error(x, ##args)
 #endif
 
-extern log4cpp::Category& log_smartDM;
+using namespace std;
 
-class Log {
+class STREAMDM_API Log {
 public:
-	static bool openLog(const std::string& configfile);
-	static void closeLog();
+
+	/**
+	 * Log a message with debug priority.
+	 * @param stringFormat Format specifier for the string to write
+	 * in the log file.
+	 * @param ... The arguments for stringFormat
+	 **/
+	void debug(const char* stringFormat, ...) throw();
+
+	/**
+	 * Log a message with debug priority.
+	 * @param message string to write in the log file
+	 **/
+	void debug(const std::string& message) throw();
+
+	/**
+	 * Log a message with info priority.
+	 * @param stringFormat Format specifier for the string to write
+	 * in the log file.
+	 * @param ... The arguments for stringFormat
+	 **/
+	void info(const char* stringFormat, ...) throw();
+
+	/**
+	 * Log a message with info priority.
+	 * @param message string to write in the log file
+	 **/
+	void info(const std::string& message) throw();
+
+	/**
+	 * Log a message with warn priority.
+	 * @param stringFormat Format specifier for the string to write
+	 * in the log file.
+	 * @param ... The arguments for stringFormat
+	 **/
+	void warn(const char* stringFormat, ...) throw();
+
+	/**
+	 * Log a message with warn priority.
+	 * @param message string to write in the log file
+	 **/
+	void warn(const std::string& message) throw();
+
+	/**
+	 * Log a message with error priority.
+	 * @param stringFormat Format specifier for the string to write
+	 * in the log file.
+	 * @param ... The arguments for stringFormat
+	 **/
+	void error(const char* stringFormat, ...) throw();
+
+	/**
+	 * Log a message with error priority.
+	 * @param message string to write in the log file
+	 **/
+	void error(const std::string& message) throw();
+
 };
+
+extern Log log_smartDM;
 
 #endif /* Log_H_ */

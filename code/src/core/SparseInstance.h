@@ -48,6 +48,7 @@
 #include "../utils/json.h"
 
 #include "Instance.h"
+#include "../API.h"
 
 #define SF_UNDEFINED_VAL FLT_MAX
 
@@ -56,12 +57,12 @@ using std::vector;
 
 // Each element of the SfSparseVector is represented as a FeatureValuePair.
 // Bundling these as a struct improves memory locality.
-struct FeatureValuePair {
+struct STREAMDM_API FeatureValuePair {
     int id_;
     float value_;
 };
 
-class SparseInstance : public Instance
+class STREAMDM_API SparseInstance : public Instance
 {
 public:
     // Construct a new vector from a string.  Input format is svm-light format:

@@ -21,12 +21,13 @@
 #include <vector>
 #include <list>
 #include "../../../Common.h"
+#include "../../../API.h"
 
 using namespace std;
 
 namespace HT {
 
-class ADListItem {
+class STREAMDM_API ADListItem {
 public:
 	ADListItem* nextItem;
 	ADListItem* previousItem;
@@ -56,7 +57,7 @@ public:
 	void toJson(Json::Value& jv);
 };
 
-class ADList {
+class STREAMDM_API ADList {
 public:
 	int count;
 	ADListItem* headItem;
@@ -77,7 +78,7 @@ public:
 	void toJson(Json::Value& jv);
 };
 
-class ADWIN {
+class STREAMDM_API ADWIN {
 public:
 	ADWIN();
 	ADWIN(double d);

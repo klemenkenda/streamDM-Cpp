@@ -21,8 +21,9 @@
 
 #include "../../Learner.h"
 #include <vector>
+#include "../../../API.h"
 
-class Bagging: public Learner {
+class STREAMDM_API Bagging: public Learner {
 public:
 	Bagging();
 	virtual ~Bagging();

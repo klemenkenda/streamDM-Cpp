@@ -21,8 +21,9 @@
 #include <vector>
 #include "../../../../Common.h"
 #include "AttributeClassObserver.h"
+#include "../../../../API.h"
 
-class NominalAttributeClassObserver : public AttributeClassObserver
+class STREAMDM_API NominalAttributeClassObserver : public AttributeClassObserver
 {
 public:
     NominalAttributeClassObserver();

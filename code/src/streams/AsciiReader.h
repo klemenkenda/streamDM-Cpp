@@ -19,10 +19,11 @@
 #define ASCIIREADER_H_
 
 #include "../Common.h"
+#include "../API.h"
 
 using namespace std;
 
-class AsciiReader: public Reader {
+class STREAMDM_API AsciiReader: public Reader {
 public:
 	AsciiReader();
 	virtual ~AsciiReader();

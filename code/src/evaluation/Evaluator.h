@@ -23,10 +23,11 @@
 #include "Measures.h"
 #include "../utils/Configurable.h"
 #include "../core/Instance.h"
+#include "../API.h"
 
 using namespace std;
 
-class Evaluator : public Configurable{
+class STREAMDM_API Evaluator : public Configurable{
 public:
 	Evaluator();
 	virtual ~Evaluator();

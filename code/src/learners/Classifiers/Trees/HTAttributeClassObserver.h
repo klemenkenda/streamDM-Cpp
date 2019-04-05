@@ -22,11 +22,13 @@
 #include <list>
 #include "AttributeSplitSuggestion.h"
 #include "../../../Common.h"
+#include "../../../API.h"
+
 using namespace std;
 
 namespace HT {
 
-class AttributeClassObserver {
+class STREAMDM_API AttributeClassObserver {
 public:
 	AttributeClassObserver();
 	virtual ~AttributeClassObserver();
@@ -41,7 +43,7 @@ public:
 	virtual void toJson(Json::Value& jv) = 0;
 };
 
-class NullAttributeClassObserver: public AttributeClassObserver {
+class STREAMDM_API NullAttributeClassObserver: public AttributeClassObserver {
 public:
 	void observeAttributeClass(double attVal, int classVal, double weight);
 	double probabilityOfAttributeValueGivenClass(double attVal, int classVal);
@@ -54,10 +56,10 @@ public:
 	virtual void toJson(Json::Value& jv);
 };
 
-class NumericAttributeClassObserver: public AttributeClassObserver {
+class STREAMDM_API NumericAttributeClassObserver: public AttributeClassObserver {
 };
 
-class GaussianNumericAttributeClassObserver: public NumericAttributeClassObserver {
+class STREAMDM_API GaussianNumericAttributeClassObserver: public NumericAttributeClassObserver {
 public:
 //    DoubleVector minValueObservedPerClass = new DoubleVector();
 //    DoubleVector maxValueObservedPerClass = new DoubleVector();
@@ -80,10 +82,10 @@ public:
 	virtual void toJson(Json::Value& jv);
 };
 
-class DiscreteAttributeClassObserver: public AttributeClassObserver {
+class STREAMDM_API DiscreteAttributeClassObserver: public AttributeClassObserver {
 };
 
-class NominalAttributeClassObserver: public DiscreteAttributeClassObserver {
+class STREAMDM_API NominalAttributeClassObserver: public DiscreteAttributeClassObserver {
 public:
 	double totalWeightObserved;
 	double missingWeightObserved;

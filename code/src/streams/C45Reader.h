@@ -19,10 +19,11 @@
 #define C45READER_H_
 
 #include "../Common.h"
+#include "../API.h"
 
 using namespace std;
 
-class C45Reader: public Reader {
+class STREAMDM_API C45Reader: public Reader {
 public:
 	C45Reader();
 	virtual ~C45Reader();

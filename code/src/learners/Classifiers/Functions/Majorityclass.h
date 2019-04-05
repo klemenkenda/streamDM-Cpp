@@ -2,8 +2,9 @@
 #define MAJORITYCLASS_H
 
 #include "../../Learner.h"
+#include "../../../API.h"
 
-class MajorityClass: public Learner {
+class STREAMDM_API MajorityClass: public Learner {
 public:
 	MajorityClass();
 	~MajorityClass();
@@ -16,4 +17,4 @@ private:
 	void doSetParams();
 };
 
-#endif //MAJORITYCLASS_H
+#endif //MAJORITYCLASS_H

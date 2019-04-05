@@ -20,11 +20,13 @@
 
 #include <vector>
 #include "InstanceConditionalTest.h"
+#include "../../../API.h"
+
 using namespace std;
 
 namespace HT {
 
-class AttributeSplitSuggestion {
+class STREAMDM_API AttributeSplitSuggestion {
 public:
 	AttributeSplitSuggestion(InstanceConditionalTest* splitTest,
 	        vector<vector<double>>& resultingClassDistributions, double merit);

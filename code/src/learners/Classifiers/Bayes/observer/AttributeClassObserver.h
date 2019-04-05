@@ -19,8 +19,9 @@
 #define ATTRIBUTECLASSOBSERVER_H_
 
 #include "../../../../utils/json.h"
+#include "../../../../API.h"
 
-class AttributeClassObserver {
+class STREAMDM_API AttributeClassObserver {
 public:
     virtual void observeClassAttributeValue(int classVal, double attVal, double weight) = 0;
     virtual double probabilityOfClassAttrValue(int classVal, double attVal) = 0;

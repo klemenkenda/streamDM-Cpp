@@ -20,10 +20,11 @@
 #include <string>
 #include "../core/Instance.h"
 #include "../utils/Configurable.h"
+#include "../API.h"
 
 using namespace std;
 
-class Reader : public Configurable {
+class STREAMDM_API Reader : public Configurable {
 public:
 	Reader();
 	virtual ~Reader();

@@ -19,8 +19,9 @@
 #define EVALUATEHOLDOUT_H_
 
 #include "../Common.h"
+#include "../API.h"
 
-class EvaluateHoldOut: public Task {
+class STREAMDM_API EvaluateHoldOut: public Task {
 public:
 	EvaluateHoldOut();
 	virtual ~EvaluateHoldOut();

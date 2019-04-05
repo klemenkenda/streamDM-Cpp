@@ -21,8 +21,9 @@
 
 #include "Instance.h"
 #include "../utils/json.h"
+#include "../API.h"
 
-class DenseInstance: public Instance {
+class STREAMDM_API DenseInstance: public Instance {
 public:
 	DenseInstance();
 	virtual ~DenseInstance();

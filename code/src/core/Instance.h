@@ -22,10 +22,11 @@
 #include <list>
 #include "InstanceInformation.h"
 #include "../utils/json.h"
+#include "../API.h"
 
 using namespace std;
 
-class Instance {
+class STREAMDM_API Instance {
 public:
 	Instance();
 	virtual ~Instance();

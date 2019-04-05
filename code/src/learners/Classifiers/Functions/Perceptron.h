@@ -21,8 +21,9 @@
 #define LEARNINGRATIO 1
 
 #include "../../Learner.h"
+#include "../../../API.h"
 
-class Perceptron: public Learner {
+class STREAMDM_API Perceptron: public Learner {
 public:
 	Perceptron();
 	virtual ~Perceptron();

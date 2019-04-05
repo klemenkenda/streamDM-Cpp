@@ -20,11 +20,13 @@
 
 #include <vector>
 #include "../../../Common.h"
+#include "../../../API.h"
+
 using namespace std;
 
 namespace HT {
 
-enum InstanceConditionalTestType {
+enum STREAMDM_API InstanceConditionalTestType {
 	T_InstanceConditionalTest,
 	T_InstanceConditionalBinaryTest,
 	T_NumericAttributeBinaryTest,
@@ -32,7 +34,7 @@ enum InstanceConditionalTestType {
 	T_NominalAttributeBinaryTest
 };
 
-class InstanceConditionalTest : public RTTI {
+class STREAMDM_API InstanceConditionalTest : public RTTI {
 public:
 	InstanceConditionalTest();
 	virtual ~InstanceConditionalTest();
@@ -46,12 +48,12 @@ public:
 	virtual double getAttValue() = 0;
 };
 
-class InstanceConditionalBinaryTest: public InstanceConditionalTest {
+class STREAMDM_API InstanceConditionalBinaryTest: public InstanceConditionalTest {
 public:
 	virtual int maxBranches();
 };
 
-class NumericAttributeBinaryTest: public InstanceConditionalBinaryTest {
+class STREAMDM_API NumericAttributeBinaryTest: public InstanceConditionalBinaryTest {
 public:
 	int attIndex;
 	double attValue;
@@ -68,7 +70,7 @@ public:
 	virtual double getAttValue();
 };
 
-class NominalAttributeMultiwayTest: public InstanceConditionalTest {
+class STREAMDM_API NominalAttributeMultiwayTest: public InstanceConditionalTest {
 public:
 	int attIndex;
 	NominalAttributeMultiwayTest(int attIndex);
@@ -82,7 +84,7 @@ public:
 	virtual double getAttValue();
 };
 
-class NominalAttributeBinaryTest: public InstanceConditionalBinaryTest {
+class STREAMDM_API NominalAttributeBinaryTest: public InstanceConditionalBinaryTest {
 public:
 	int attIndex;
 	int attValue;

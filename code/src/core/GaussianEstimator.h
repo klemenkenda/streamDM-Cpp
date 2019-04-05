@@ -22,10 +22,11 @@
 #include <fstream>
 #include <string>
 #include "../utils/json.h"
+#include "../API.h"
 
 using namespace std;
 
-class GaussianEstimator
+class STREAMDM_API GaussianEstimator
 {
 public:
 	GaussianEstimator();

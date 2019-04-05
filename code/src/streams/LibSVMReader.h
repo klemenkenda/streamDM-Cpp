@@ -28,8 +28,9 @@
 #define LIBSVMREADER_H__
 
 #include "../Common.h"
+#include "../API.h"
 
-class LibSVMReader : public Reader 
+class STREAMDM_API LibSVMReader : public Reader
 {
 public:
 //    // Empty data set.

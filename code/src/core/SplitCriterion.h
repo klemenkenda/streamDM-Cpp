@@ -19,11 +19,13 @@
 #define SPLITCRITERION_H_
 
 #include <vector>
+#include "../API.h"
+
 using namespace std;
 
 namespace HT {
 
-class SplitCriterion {
+class STREAMDM_API SplitCriterion {
 public:
 	SplitCriterion();
 	virtual ~SplitCriterion();
@@ -32,7 +34,7 @@ public:
 	virtual double getRangeOfMerit(const vector<double>& preSplitDist) = 0;
 };
 
-class InfoGainSplitCriterion: public SplitCriterion {
+class STREAMDM_API InfoGainSplitCriterion: public SplitCriterion {
 public:
 	InfoGainSplitCriterion();
 	// TODO option miniBranchFrac

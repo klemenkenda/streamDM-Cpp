@@ -20,10 +20,11 @@
 
 #include <vector>
 #include "../utils/json.h"
+#include "../API.h"
 
 using namespace std;
 
-class DoubleVector
+class STREAMDM_API DoubleVector
 {
 public:
 	DoubleVector();

@@ -34,10 +34,11 @@
 #define SPARSEESTIMATOR_H__
 
 #include "SparseInstance.h"
+#include "../API.h"
 
 using std::string;
 
-class SparseEstimator 
+class STREAMDM_API SparseEstimator
 {
 public:
     // Construct a weight vector of dimenson d, with all weights initialized to

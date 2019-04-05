@@ -34,6 +34,8 @@
 #include <map>
 
 #include "json.h"
+#include "../API.h"
+
 using namespace std;
 
 
@@ -46,7 +48,7 @@ using namespace std;
  *
  *
  */
-class CommandLineParameter {
+class STREAMDM_API CommandLineParameter {
 public:
 	CommandLineParameter();
 	~CommandLineParameter();
@@ -62,7 +64,7 @@ private:
  * CLPFN means: Command Line Parameter Full Names
  * for example: transfer "-l" to "learner"
  */
-class CLPFN  {
+class STREAMDM_API CLPFN  {
 private:
 	CLPFN();
 	CLPFN(const CLPFN&);
@@ -81,7 +83,7 @@ public:
 	map<string, map< string, string> > data;
 };
 
-class RegisterCommandLineParameterFullName {
+class STREAMDM_API RegisterCommandLineParameterFullName {
 public:
 	RegisterCommandLineParameterFullName(const string& fullName);
 };
@@ -89,7 +91,7 @@ public:
 #define REGISTER_COMMAND_LINE_PARAMETER(className, parameter) \
 	RegisterCommandLineParameterFullName __CLPFN_##className##__(parameter) ;
 
-class CommandLineParser {
+class STREAMDM_API CommandLineParser {
 public:
 	static bool parser(int argc, char* argv[], string& taskName, string& taskParam);
 private:

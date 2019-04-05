@@ -19,8 +19,9 @@
 #define NULLEVALUATOR_H_
 
 #include "Evaluator.h"
+#include "../API.h"
 
-class NullEvaluator : public Evaluator {
+class STREAMDM_API NullEvaluator : public Evaluator {
 public:
 	NullEvaluator();
 	virtual ~NullEvaluator();

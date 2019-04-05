@@ -20,9 +20,11 @@
 #include <string>
 #include <vector>
 #include "../utils/json.h"
+#include "../API.h"
+
 using namespace std;
 
-class Attribute {
+class STREAMDM_API Attribute {
 public:
 	Attribute();
 	Attribute(const vector<string>& values);

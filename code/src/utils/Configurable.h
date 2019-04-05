@@ -21,9 +21,11 @@
 #include <string>
 
 #include "json.h"
+#include "../API.h"
+
 using namespace std;
 
-class Configurable {
+class STREAMDM_API Configurable {
 public:
 	Configurable();
 	~Configurable();

@@ -26,6 +26,8 @@
 #include "InstanceConditionalTest.h"
 #include "AttributeSplitSuggestion.h"
 #include "HTNode.h"
+#include "../../../API.h"
+
 using namespace std;
 
 namespace HT {
@@ -34,7 +36,7 @@ class Node;
 class SplitNode;
 class HoeffdingTree;
 
-class FoundNode {
+class STREAMDM_API FoundNode {
 public:
 	Node* node;
 	SplitNode* parent;
@@ -43,7 +45,7 @@ public:
 	void toJson(Json::Value& jv);
 };
 
-enum NodeType {
+enum STREAMDM_API NodeType {
 	NT_Node,
 	NT_SplitNode,
 	NT_LearningNode,
@@ -56,7 +58,7 @@ enum NodeType {
 	NT_AdaLearningNode
 };
 
-class Node : public RTTI{
+class STREAMDM_API Node : public RTTI {
 public:
 	vector<double>* observedClassDistribution;
 
@@ -80,7 +82,7 @@ public:
 };
 
 
-class SplitNode: public Node {
+class STREAMDM_API SplitNode: public Node {
 public:
 	InstanceConditionalTest* splitTest;
 	list<Node*>* children;
@@ -102,7 +104,7 @@ public:
 
 };
 
-class LearningNode: public Node {
+class STREAMDM_API LearningNode: public Node {
 public:
 	LearningNode(const vector<double>& initialClassObservations);
 	LearningNode(const Json::Value& jv);
@@ -110,7 +112,7 @@ public:
 };
 
 
-class InactiveLearningNode: public LearningNode {
+class STREAMDM_API InactiveLearningNode: public LearningNode {
 public:
 	InactiveLearningNode(const vector<double>& initialClassObservations);
 	InactiveLearningNode(const Json::Value& jv);
@@ -119,7 +121,7 @@ public:
 };
 
 
-class ActiveLearningNode: public LearningNode {
+class STREAMDM_API ActiveLearningNode: public LearningNode {
 public:
 	double weightSeenAtLastSplitEvaluation;
 	list<AttributeClassObserver*>* attributeObservers;
@@ -139,7 +141,7 @@ public:
 };
 
 
-class LearningNodeNB: public ActiveLearningNode {
+class STREAMDM_API LearningNodeNB: public ActiveLearningNode {
 public:
 	vector<double> classVotes;	// used for save votes, don't need to clean memory after calling getClassVotes()
 
@@ -154,7 +156,7 @@ public:
 	            const list<AttributeClassObserver*>& attributeObservers)  ;
 };
 
-class LearningNodeNBAdaptive: public LearningNodeNB {
+class STREAMDM_API LearningNodeNBAdaptive: public LearningNodeNB {
 public:
 	double mcCorrectWeight;
 	double nbCorrectWeight;

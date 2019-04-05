@@ -25,10 +25,11 @@
 #include <map>
 #include <cmath>
 #include <iostream>
+#include "../API.h"
 
 using namespace std;
 
-class Utils {
+class STREAMDM_API Utils {
 public:
 	Utils();
 	static int poisson(double lambda);

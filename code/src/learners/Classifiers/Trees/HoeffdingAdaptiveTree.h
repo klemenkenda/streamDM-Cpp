@@ -22,6 +22,8 @@
 #include <list>
 #include "HoeffdingTree.h"
 #include "InstanceConditionalTest.h"
+#include "../../../API.h"
+
 using namespace std;
 
 namespace HT {
@@ -29,7 +31,7 @@ namespace HT {
 extern bool debugFlag;
 extern int instance_count2;
 
-class HoeffdingAdaptiveTree: public HoeffdingTree {
+class STREAMDM_API HoeffdingAdaptiveTree: public HoeffdingTree {
 public:
 	HoeffdingAdaptiveTree();
 	virtual ~HoeffdingAdaptiveTree();

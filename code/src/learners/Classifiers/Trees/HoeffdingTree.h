@@ -22,19 +22,30 @@
 #include <string>
 #include <list>
 #include "../../../Common.h"
+#include "../../../API.h"
 #include "HTAttributeClassObserver.h"
 #include "InstanceConditionalTest.h"
 #include "HTNode.h"
+
 using namespace std;
 
 namespace HT {
 
-class HoeffdingTree: public Learner {
+class STREAMDM_API HoeffdingTree: public Learner {
 public:
 	HoeffdingTree();
+	HoeffdingTree(const vector<string>& attributes, const vector<string>& classes);
+	HoeffdingTree(const int numberOfAttributes, const int numberOfClasses);
 	virtual ~HoeffdingTree();
 
+	bool setParams(const string& params);
+	void setInstanceInformation(const vector<string>& attributes, const vector<string>& classes);
+	void setInstanceInformation(const int numberOfAttributes, const int numberOfClasses);
 	void train(const Instance&);
+	void train(const vector<double>& values, const int label);
+	void fit(const vector<vector<double>>& values, const vector<int>& label);
+	int predict(const vector<double>& values);
+	int predict(const Instance&);
 	double* getPrediction(const Instance&);
 	double probability(const Instance&, int);
 
@@ -107,6 +118,7 @@ public:
 	virtual void toJson(Json::Value& jv);
 
 private:
+	void init();
 	string showSplitSuggestion(AttributeSplitSuggestion* ass);
 	void showBestSplitSuggestions(
 			list<AttributeSplitSuggestion*>* bestSplitSuggestions);
@@ -114,6 +126,7 @@ private:
 	bool mShowTreePath;
 	stringstream mTreePath;
 	void showTreePath(const Instance& instance,  Node* node);
+	vector<string> splitLabels(const string& labelString);
 
 protected:
 	virtual bool importFromJson(const Json::Value& jv);
@@ -121,6 +134,7 @@ protected:
 
 	bool mFixTree;
 	vector<int> mTreePropertyIndexList;
+	InstanceInformation* mInstanceInformation = nullptr;
 };
 // class HoeffdingTree
 

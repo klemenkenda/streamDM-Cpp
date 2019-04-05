@@ -21,9 +21,11 @@
 #include <string>
 
 #include "json.h"
+#include "../API.h"
+
 using namespace std;
 
-class LearnerModel {
+class STREAMDM_API LearnerModel {
 public:
 	LearnerModel();
 	virtual ~LearnerModel();

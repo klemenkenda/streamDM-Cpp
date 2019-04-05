@@ -19,8 +19,9 @@
 #define EVALUATEPREQUENTIAL_H_
 
 #include "../Common.h"
+#include "../API.h"
 
-class EvaluatePrequential: public Task {
+class STREAMDM_API EvaluatePrequential: public Task {
 public:
 	EvaluatePrequential();
 	virtual ~EvaluatePrequential();

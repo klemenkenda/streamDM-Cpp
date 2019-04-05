@@ -19,8 +19,9 @@
 #define _LOGISTICREGRESSION_H
 
 #include "Perceptron.h"
+#include "../../../API.h"
 
-class LogisticRegression: public Perceptron {
+class STREAMDM_API LogisticRegression: public Perceptron {
 public:
 	LogisticRegression();
 	~LogisticRegression();

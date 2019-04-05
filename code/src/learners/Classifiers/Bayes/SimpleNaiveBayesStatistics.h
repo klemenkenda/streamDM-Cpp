@@ -20,11 +20,13 @@
 
 #include "NaiveBayesStatistics.h"
 #include "observer/AttributeClassObserver.h"
+#include "../../../API.h"
 
 #include <vector>
+
 using namespace std;
 
-class SimpleNaiveBayesStatistics: public NaiveBayesStatistics {
+class STREAMDM_API SimpleNaiveBayesStatistics: public NaiveBayesStatistics {
 public:
 	SimpleNaiveBayesStatistics();
 	virtual ~SimpleNaiveBayesStatistics();

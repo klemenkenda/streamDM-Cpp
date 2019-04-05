@@ -19,8 +19,9 @@
 #define CSVREADER_H_
 
 #include "Reader.h"
+#include "../API.h"
 
-class CSVReader: public Reader {
+class STREAMDM_API CSVReader: public Reader {
 public:
 	CSVReader();
 	virtual ~CSVReader();

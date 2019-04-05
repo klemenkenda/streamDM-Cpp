@@ -19,8 +19,9 @@
 #define NAIVEBAYESSTATISTICS_H_
 
 #include "../../../utils/json.h"
+#include "../../../API.h"
 
-class NaiveBayesStatistics {
+class STREAMDM_API NaiveBayesStatistics {
 public:
 	NaiveBayesStatistics();
 	virtual ~NaiveBayesStatistics();

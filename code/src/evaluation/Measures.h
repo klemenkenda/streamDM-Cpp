@@ -20,9 +20,11 @@
 #include <vector>
 #include <string>
 #include <string.h>
+#include "../API.h"
+
 using namespace std;
 
-class Measures {
+class STREAMDM_API Measures {
 public:
 	Measures();
 	virtual ~Measures();

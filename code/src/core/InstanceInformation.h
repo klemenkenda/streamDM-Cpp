@@ -22,9 +22,11 @@
 #include <map>
 #include <string>
 #include "../utils/json.h"
+#include "../API.h"
+
 using namespace std;
 
-class InstanceInformation {
+class STREAMDM_API InstanceInformation {
 public:
 	InstanceInformation();
 	InstanceInformation(const bool negativeOneAsNone);

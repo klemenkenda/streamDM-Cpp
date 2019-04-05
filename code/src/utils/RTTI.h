@@ -19,9 +19,11 @@
 #define RTTI_H_
 
 #include <vector>
+#include "../API.h"
+
 using namespace std;
 
-class RTTI {
+class STREAMDM_API RTTI {
 public:
 	RTTI();
 	virtual ~RTTI();

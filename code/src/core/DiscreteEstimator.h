@@ -21,8 +21,9 @@
 
 #include <vector>
 #include "DoubleVector.h"
+#include "../API.h"
 
-class DiscreteEstimator {
+class STREAMDM_API DiscreteEstimator {
 public:
 	DiscreteEstimator();
 	virtual ~DiscreteEstimator();
