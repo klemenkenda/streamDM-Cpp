@@ -18,6 +18,7 @@
 #ifndef LEARNER_H
 #define LEARNER_H
 
+#include <unordered_set>
 #include "../core/Instance.h"
 #include "../evaluation/Evaluator.h"
 #include "../utils/Configurable.h"
@@ -35,17 +36,35 @@ public:
 	int predict(const Instance&);
 	void trainBagging(const Instance&);
 	void process(const Instance&);
-	int getInstanceSeen();
+	int getInstanceSeen() const;
 	void setEvaluator(Evaluator*);
 	virtual void initPara(int argc, char* argv[]) {};
-	Evaluator* getEvaluator();
+	Evaluator* getEvaluator() const;
 	virtual string getEnsemblePrediction(const Instance&);
+
+    void setAttributes(const vector<string>& featureDefs, const vector<string>& classDefs);
+    void setAttributes(const int nFeatures, const int nClasses);
+    void fit(const vector<double>& features, const int target);
+    void fit(const vector<vector<double>>& samples, const vector<int>& targets);
+    void fitBagging(const vector<double>& features, const int target);
+    void fitBagging(const vector<vector<double>>& samples, const vector<int> targets);
+    void process(const vector<double>& features, const int target);
+    void process(const vector<vector<double>>& samples, const vector<int> targets);
+    int predict(const vector<double>& features);
+    vector<int> predict(const vector<vector<double>>& samples);
+
+private:
+    vector<string> splitCSV(const string& csvString) const;
+    Instance* generateInstance(const vector<double>& features, const int target) const;
+    void setAttributes(const vector<double>& features, const int target);
+    void setAttributes(const vector<vector<double>>& samples, const vector<int>& targets);
 
 protected:
 	int instancesSeen;
 	bool init;
 	Evaluator* evaluator;
-
+    InstanceInformation* mInstanceInformation = nullptr;
+    unordered_set<string> mClasses;
 };
 
 #endif //LEARNER_H

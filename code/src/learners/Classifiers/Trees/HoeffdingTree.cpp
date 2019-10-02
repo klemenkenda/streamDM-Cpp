@@ -43,37 +43,18 @@ REGISTER_COMMAND_LINE_PARAMETER(HoeffdingTree, "{\"type\":\"Learner\","
 		"}}"
 		"");
 
-
-void HoeffdingTree::init() {
-	classPrediction = nullptr;
-	trainingWeightSeenByModel = 0.0;
-	this->mShowTreePath = false;
-	this->mFixTree = false;
-	renew();
-}
-
 HoeffdingTree::HoeffdingTree() {
-	init();
-}
-
-HoeffdingTree::HoeffdingTree(const vector<string>& attributes, const vector<string>& classes) {
-	init();
-	setInstanceInformation(attributes, classes);
-}
-
-HoeffdingTree::HoeffdingTree(const int numberOfAttributes, const int numberOfClasses) {
-	init();
-	setInstanceInformation(numberOfAttributes, numberOfClasses);
+    classPrediction = nullptr;
+    trainingWeightSeenByModel = 0.0;
+    this->mShowTreePath = false;
+    this->mFixTree = false;
+    renew();
 }
 
 HoeffdingTree::~HoeffdingTree() {
 	if (classPrediction != nullptr) {
 		delete[] classPrediction;
 	}
-}
-
-bool HoeffdingTree::setParams(const string& params) {
-	return Configurable::setParams(params);
 }
 
 void HoeffdingTree::doSetParams() {
@@ -160,109 +141,8 @@ void HoeffdingTree::Params::toJson(Json::Value& jv) {
 	jv["nbThreshold"] = this->nbThreshold;
 }
 
-vector<string> HoeffdingTree::splitLabels(const string& labelString) {
-	const string delim = ",";
-	size_t start = 0;
-	size_t end = labelString.find(delim);
-	vector<string> labels;
-
-	while ((end = labelString.find(delim, start)) != string::npos) {
-		labels.push_back(labelString.substr(start, end - start));
-		start = end + delim.size();
-	}
-	labels.push_back(labelString.substr(start, end));
-
-	return labels;
-}
-
-void HoeffdingTree::setInstanceInformation(const int numberOfAttributes, const int numberOfClasses) {
-	mInstanceInformation = new InstanceInformation();
-
-	for (int i = 0; i < numberOfAttributes; i++) {
-		mInstanceInformation->addAttribute(new Attribute(), i);
-	}
-
-	vector<string> classes;
-	for (int i = 0; i < numberOfClasses; i++) {
-		classes.push_back(to_string(i));
-	}
-	mInstanceInformation->addClass(new Attribute(classes), 0);
-}
-
-void HoeffdingTree::setInstanceInformation(const vector<string>& attributes, const vector<string>& classes) {
-	mInstanceInformation = new InstanceInformation();
-
-	for (int i = 0; i < attributes.size(); i++) {
-		vector<string> labels = splitLabels(attributes[i]);
-
-		if (labels.size() < 2) {
-			mInstanceInformation->addAttribute(new Attribute(), i);
-		} else {
-			mInstanceInformation->addAttribute(new Attribute(labels), i);
-		}
-	}
-
-	for (int i = 0; i < classes.size(); i++) {
-		vector<string> labels = splitLabels(classes[i]);
-
-		if (labels.size() < 2) {
-			mInstanceInformation->addClass(new Attribute(), i);
-		} else {
-			mInstanceInformation->addClass(new Attribute(labels), i);
-		}
-	}
-}
-
 void HoeffdingTree::train(const Instance& instance) {
 	trainOnInstanceImpl(&instance);
-}
-
-void HoeffdingTree::train(const vector<double>& values, const int label) {
-	// Build instance
-	DenseInstance instance;
-	instance.setInstanceInformation(mInstanceInformation);
-	instance.addValues(values);
-
-	vector<double> labels(1);
-	labels[0] = (double)label;
-	instance.addLabels(labels);
-
-	// Train
-	trainOnInstanceImpl(&instance);
-}
-
-void HoeffdingTree::fit(const vector<vector<double>>& values, const vector<int>& labels) {
-	if (mInstanceInformation == nullptr) {
-		// Get number of classes
-		int numberOfClasses = 0;
-		unordered_set<int> set;
-
-		for (int i = 0; i < labels.size(); i++) {
-			if (set.find(labels[i]) == set.end()) {
-				set.insert(labels[i]);
-				numberOfClasses++;
-			}
-		}
-
-		setInstanceInformation(values[0].size(), numberOfClasses);
-	}
-	
-	// Train
-	for (int i = 0; i < values.size(); i++) {
-		train(values[i], labels[i]);
-	}
-}
-
-int HoeffdingTree::predict(const vector<double>& values) {
-	DenseInstance instance;
-	instance.setInstanceInformation(mInstanceInformation);
-	instance.addValues(values);
-
-	return predict(instance);
-}
-
-int HoeffdingTree::predict(const Instance& instance) {
-	return Learner::predict(instance);
 }
 
 double* HoeffdingTree::getPrediction(const Instance& instance) {
