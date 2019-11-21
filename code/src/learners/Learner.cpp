@@ -142,7 +142,19 @@ void Learner::setAttributes(const vector<vector<double>>& samples, const vector<
         }
     }
 
-    setAttributes(samples[0].size(), nClasses);
+    mInstanceInformation = new InstanceInformation();
+
+    for (int i = 0; i < samples[0].size(); i++) {
+        mInstanceInformation->addAttribute(new Attribute(), i);
+    }
+
+    vector<string> classes;
+    unordered_set<int>::iterator itr;
+    for (itr = set.begin(); itr != set.end(); itr++) {
+        classes.push_back(to_string(*itr));
+    }
+
+    mInstanceInformation->addClass(new Attribute(classes), 0);
 }
 
 Instance* Learner::generateInstance(const vector<double>& features, const int target) const {
@@ -151,7 +163,7 @@ Instance* Learner::generateInstance(const vector<double>& features, const int ta
     instance->addValues(features);
 
     vector<double> labels(1);
-    labels[0] = (double)target;
+    labels[0] = mInstanceInformation->getOutputAttributeIndex(0, to_string(target));
     instance->addLabels(labels);
 
     return instance;
@@ -257,12 +269,13 @@ int Learner::predict(const vector<double>& features) {
     instance.setInstanceInformation(mInstanceInformation);
     instance.addValues(features);
 
-    return predict(instance);
+    int index = predict(instance);
+
+    return stoi(instance.getOutputAttribute(0)->getValue(index));
 }
 
 vector<int> Learner::predict(const vector<vector<double>>& samples) {
     vector<int> predictions;
-
     for (int i = 0; i < samples.size(); i++) {
         predictions.push_back(predict(samples[i]));
     }

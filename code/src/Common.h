@@ -38,8 +38,11 @@
 #include <cstring>
 #include <cstdlib>
 
-// #include <unistd.h>
+#if defined(_MSC_VER)
 #include <io.h>
+#else
+#include <unistd.h>
+#endif
 
 #include "utils/Log.h"
 #include "utils/Utils.h"

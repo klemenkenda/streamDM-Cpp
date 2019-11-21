@@ -366,8 +366,8 @@ int ArffReader::input(string& s) {
 	vector<double> labels(1);
 	vector<double> values(mAttributes->count - 1);
 	while (getline(ss, item, ',')) {
-//		item.erase(0, item.find_first_not_of(" \r\n\t"));
-//        item.erase(item.find_last_not_of(" \r\n\t") + 1);
+		item.erase(0, item.find_first_not_of(" \r\n\t"));
+       	item.erase(item.find_last_not_of(" \r\n\t") + 1);
 		d = mAttributes->getIndex(index, item);
 		if (index == this->mAttributes->count - 1) {
 			labels[0] = d;

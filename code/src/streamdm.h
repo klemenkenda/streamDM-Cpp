@@ -29,6 +29,8 @@ public:
     //void process(const vector<vector<double>>& samples, const vector<int> targets);
     //int predict(const vector<double>& features);
     //vector<int> predict(const vector<vector<double>>& samples);
+    bool export_json(const string& file_name);
+    //bool import_json(const string& file_name);
 };
 
 
@@ -113,6 +115,16 @@ void LearnerWrapper<T>::predict(double* samples, int nSampels, int nFeatures, in
         predictions[i] = p[i];
     }
 }
+
+template <class T>
+bool LearnerWrapper<T>::export_json(const string& file_name) {
+    return T::exportToFile(file_name);
+}
+
+//template <class T>
+//bool LearnerWrapper<T>::import_json(const string& file_name) {
+//    return T::importFromFile(file_name);
+//}
 
 
 #endif //STREAMDM_H

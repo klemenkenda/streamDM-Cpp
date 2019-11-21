@@ -344,8 +344,8 @@ int C45Reader::input(string& s) {
 		if (index >= this->mAttributes->count) {
 			break;
 		}
-		// item.erase(0, item.find_first_not_of(" \r\n\t"));
-		// item.erase(item.find_last_not_of(" \r\n\t") + 1);
+		item.erase(0, item.find_first_not_of(" \r\n\t"));
+		item.erase(item.find_last_not_of(" \r\n\t") + 1);
 		d = mAttributes->getIndex(index, item);
 //		this->mNextInstance->addValue(d, index);
 		if (index == this->mAttributes->count - 1) {

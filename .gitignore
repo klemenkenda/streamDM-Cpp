@@ -1,5 +1,8 @@
 *.arff
-streamdm-cpp.exe
+*.cxx
+debug/
 Debug/
+release/
 Release/
 .vs/
+.vscode/

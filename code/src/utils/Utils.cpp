@@ -19,9 +19,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <algorithm>
-// #include <unistd.h>
-#include <io.h>
 #include <cmath>
+
+#if defined(_MSC_VER)
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
 
 #include <sys/types.h>
 #include <sys/stat.h>

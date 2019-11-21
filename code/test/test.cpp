@@ -8,6 +8,7 @@
 #include "learners/Classifiers/Trees/HoeffdingTree.h"
 #include "evaluation/BasicClassificationEvaluator.h"
 #include "tasks/Task.h"
+#include "utils/json.h"
 
 using namespace std;
 using namespace HT;
@@ -75,7 +76,8 @@ Dataset readData(const string& fileName, const int maxSamples = 0) {
     	}
 
     	ds.X.push_back(x);
-    	ds.y.push_back((int)inst->getOutputAttributeValue(0));
+    	//ds.y.push_back((int)inst->getOutputAttributeValue(0));
+    	ds.y.push_back(stoi(inst->getOutputAttribute(0)->getValue(inst->getOutputAttributeValue(0))));
 
         delete inst;
     }
@@ -181,6 +183,25 @@ void testBatch(const string& fileName, const int datasetSize, const double testS
     cout << "Training... ";
 
     HoeffdingTree learner;
+    vector<string> features = {
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric"
+    };
+    vector<string> classes = {
+        "1100,1211,1221,1222,1240,1300,1410,1500,1600,1800,2000,3000,7000"
+    };
+    learner.setAttributes(features, classes);
     learner.setParams(htParams);
 
     BasicClassificationEvaluator evaluator;
@@ -221,6 +242,14 @@ void testIncremental(const string& fileName, const int datasetSize, const double
 
     const int trainSetSize = (int)round(max(0.0, min(1.0 - testSetFraction, 1.0)) * datasetSize);
     const int testSetSize = datasetSize - trainSetSize;
+
+    cout << "Dataset: " << endl;
+    cout << "size: " << datasetSize << endl;
+    cout << "Train Set: " << endl;
+    cout << "size: " << trainSetSize << endl;
+    cout << "Test Set: " << endl;
+    cout << "size: " << testSetSize << endl;
+
     ArffReader reader;
     reader.setFile(fileName);
 
@@ -282,12 +311,12 @@ void testIncremental(const string& fileName, const int datasetSize, const double
 int main(int argc, char* argv[])
 {
     const string fileName = "data.arff";
-    const int datasetSize = 100000;
+    const int datasetSize = 50000;
     const double testSetFraction = 0.25;
 
-    testBatch(fileName, datasetSize, testSetFraction);
-    cout << endl;
     testIncremental(fileName, datasetSize, testSetFraction);
+    cout << endl;
+    testBatch(fileName, datasetSize, testSetFraction);
 
 	return 0;
 }

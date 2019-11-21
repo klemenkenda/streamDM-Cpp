@@ -1,82 +1,61 @@
-sourcefiles_core = \
-code/src/core/Attribute.cpp \
-code/src/core/DenseInstance.cpp \
-code/src/core/DiscreteEstimator.cpp \
-code/src/core/DoubleVector.cpp \
-code/src/core/GaussianEstimator.cpp \
-code/src/core/Instance.cpp \
-code/src/core/InstanceInformation.cpp \
-code/src/core/SparseEstimator.cpp \
-code/src/core/SparseInstance.cpp \
-code/src/core/SplitCriterion.cpp \
-code/src/utils/Utils.cpp \
-code/src/utils/Log.cpp \
-code/src/utils/CommandLineParser.cpp \
-code/src/utils/Configurable.cpp \
-code/src/utils/DynamicCreateClass.cpp \
-code/src/utils/jsoncpp.cpp \
-code/src/utils/LearnerModel.cpp \
-code/src/utils/RTTI.cpp \
-code/src/streams/Reader.cpp \
-code/src/streams/ArffReader.cpp \
-code/src/streams/C45Reader.cpp \
-code/src/streams/CSVReader.cpp \
-code/src/streams/LibSVMReader.cpp \
-code/src/evaluation/BasicClassificationEvaluator.cpp \
-code/src/evaluation/Evaluator.cpp \
-code/src/evaluation/Measures.cpp \
-code/src/evaluation/NullEvaluator.cpp \
-code/src/learners/Learner.cpp \
-code/src/learners/Classifiers/Functions/Logisticregression.cpp \
-code/src/learners/Classifiers/Functions/Majorityclass.cpp \
-code/src/learners/Classifiers/Functions/Perceptron.cpp \
-code/src/learners/Classifiers/Bayes/NaiveBayesStatistics.cpp \
-code/src/learners/Classifiers/Bayes/Naivebayes.cpp \
-code/src/learners/Classifiers/Bayes/SimpleNaiveBayesStatistics.cpp \
-code/src/learners/Classifiers/Meta/Bagging.cpp \
-code/src/learners/Classifiers/Bayes/observer/NominalAttributeClassObserver.cpp \
-code/src/learners/Classifiers/Bayes/observer/NumericAttributeClassObserver.cpp \
-code/src/learners/Classifiers/Trees/ADWIN.cpp \
-code/src/learners/Classifiers/Trees/AttributeSplitSuggestion.cpp \
-code/src/learners/Classifiers/Trees/HATNode.cpp \
-code/src/learners/Classifiers/Trees/HoeffdingAdaptiveTree.cpp \
-code/src/learners/Classifiers/Trees/HoeffdingTree.cpp \
-code/src/learners/Classifiers/Trees/HTAttributeClassObserver.cpp \
-code/src/learners/Classifiers/Trees/HTNode.cpp \
-code/src/learners/Classifiers/Trees/InstanceConditionalTest.cpp \
-code/src/tasks/EvaluatePrequential.cpp \
-code/src/tasks/EvaluateHoldOut.cpp \
-code/src/tasks/Task.cpp \
-code/src/main.cpp
+config = release
+# config = debug
+build = build/$(config)
 
+ifeq ($(config), debug)
+	debug = -g
+else
+	# debug =
+endif
 
-sourcefiles = $(sourcefiles_core) 
+src = code/src
+test = code/test
+targetfile = streamdm
+flags = -std=c++11 -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE64 -O3 -DUNIX $(debug) 
 
-targetfile = streamdm-cpp
+# Core library
+sourcefiles_lib = \
+    $(wildcard $(src)/core/*.cpp) \
+    $(wildcard $(src)/utils/*.cpp) \
+    $(wildcard $(src)/streams/*.cpp) \
+    $(wildcard $(src)/evaluation/*.cpp) \
+    $(wildcard $(src)/tasks/*.cpp) \
+    $(wildcard $(src)/learners/*.cpp) \
+    $(wildcard $(src)/learners/Classifiers/Bayes/*.cpp) \
+    $(wildcard $(src)/learners/Classifiers/Bayes/observer/*.cpp) \
+    $(wildcard $(src)/learners/Classifiers/Functions/*.cpp) \
+    $(wildcard $(src)/learners/Classifiers/Meta/*.cpp) \
+    $(wildcard $(src)/learners/Classifiers/Trees/*.cpp)
 
-includepath = -Icode/src/core -Icode/src/learners  -Icode/src \
-    -Icode/src/utils -Icode/src/learners/classifiers/Bayes \
-    -Icode/src/tasks -Icode/src/learners/classifiers/Trees \
-    -Icode/src/learners/Classifiers/Bayes/observer/ \
-    -Icode/src/learners/Classifiers/Meta/ \
-    -Icode/src/learners/Classifiers/Functions/ \
-    -Icode/src/evaluation/ \
-    -Icode/src/streams/ 
-    
+includepath_lib = -I$(src)
+flags_lib = -JSON_DLL_BUILD -DSTREAMDM_EXPORTS -fPIC -shared $(flags)
 
-glog = -lglog -lpthread
+# Python library
+sourcefiles_py = $(src)/$(targetfile)_wrap.cxx $(sourcefiles_lib)
+includepath_py = \
+	-I$(src) \
+	-I$(PYTHON_INCLUDE) \
+	-I$(NUMPY_INCLUDE)
+flags_py = -JSON_DLL_BUILD -DSTREAMDM_EXPORTS -fPIC -shared $(flags)
 
-log4cxx = -llog4cxx
+# Test
+sourcefiles_test = $(wildcard $(test)/*.cpp)
+includepath_test = -I$(src)
+flags_test = $(flags)
 
-log4cpp = -llog4cpp -lpthread
+all: py
 
-debug = -g
+py:
+	mkdir -p $(build)
+	swig -c++ -python -o $(src)/$(targetfile)_wrap.cxx -outdir $(build) $(src)/$(targetfile).i
+	g++ $(sourcefiles_py) $(includepath_py) $(flags_py) -o $(build)/_$(targetfile).so
+	cp $(test)/test.py $(build)
 
-warning = -Wall -Wno-sign-compare -Wno-nonnull -Wno-unused-variable  
+lib:
+	mkdir -p $(build)
+	g++ $(sourcefiles_lib) $(includepath_lib) $(flags_lib) -o $(build)/$(targetfile).so
+	g++ $(sourcefiles_test) $(includepath_test) -L$(build) -l:$(targetfile).so $(flags_test) -o $(build)/test
 
-flags = -std=c++11 -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE64 -O3 -DUNIX  $(debug)  
-
-all:
-	g++ $(sourcefiles) $(includepath) $(log4cpp) $(flags) -o $(targetfile)
-
-
+clean:
+	rm -rf $(build)
+	rm -f $(src)/$(targetfile)_wrap.cxx
